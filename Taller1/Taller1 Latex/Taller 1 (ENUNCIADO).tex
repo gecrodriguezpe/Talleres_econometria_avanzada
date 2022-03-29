@@ -1,0 +1,520 @@
+\documentclass[a4paper]{article} 
+\addtolength{\hoffset}{-2.25cm}
+\addtolength{\textwidth}{4.5cm}
+\addtolength{\voffset}{-3.25cm}
+\addtolength{\textheight}{5cm}
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{0in}
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\usepackage{blindtext} % Package to generate dummy text
+\usepackage{charter} % Use the Charter font
+\usepackage[utf8]{inputenc} % Use UTF-8 encoding
+\usepackage{microtype} % Slightly tweak font spacing for aesthetics
+\usepackage[english, spanish, es-nodecimaldot]{babel} % Language hyphenation and typographical rules
+\usepackage{amsthm, amsmath, amssymb} % Mathematical typesetting
+\usepackage{float} % Improved interface for floating objects
+\usepackage[final, colorlinks = true, 
+            linkcolor = black, 
+            citecolor = black]{hyperref} % For hyperlinks in the PDF
+\usepackage{graphicx, multicol} % Enhanced support for graphics
+\usepackage{xcolor} % Driver-independent color extensions
+\usepackage{marvosym, wasysym} % More symbols
+\usepackage{rotating} % Rotation tools
+\usepackage{censor} % Facilities for controlling restricted text
+\usepackage{listings, lstlisting} % Environment for non-formatted code, !uses style file!
+%\usepackage{pseudocode} % Environment for specifying algorithms in a natural way
+\usepackage{avm} % Environment for f-structures, !uses style file!
+\usepackage{booktabs} % Enhances quality of tables
+\usepackage{tikz-qtree} % Easy tree drawing tool
+\tikzset{every tree node/.style={align=center,anchor=north},
+         level distance=2cm} % Configuration for q-trees
+\usepackage{btree} % Configuration for b-trees and b+-trees, !uses style file!
+\usepackage[backend=biber,style=numeric,
+            sorting=nyt]{biblatex} % Complete reimplementation of bibliographic facilities
+\addbibresource{ecl.bib}
+\usepackage{csquotes} % Context sensitive quotation facilities
+\usepackage[yyyymmdd]{datetime} % Uses YEAR-MONTH-DAY format for dates
+\renewcommand{\dateseparator}{-} % Sets dateseparator to '-'
+\usepackage{fancyhdr} % Headers and footers
+\pagestyle{fancy} % All pages have headers and footers
+\fancyhead{}\renewcommand{\headrulewidth}{0pt} % Blank out the default header
+\fancyfoot[L]{} % Custom footer text
+\fancyfoot[C]{} % Custom footer text
+\fancyfoot[R]{\thepage} % Custom footer text
+\newcommand{\note}[1]{\marginpar{\scriptsize \textcolor{red}{#1}}} % Enables comments in red on margin
+\DeclareMathOperator*{\plim}{plim}
+\usepackage[most]{tcolorbox}
+\usepackage{cancel}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{multirow}
+\usepackage{listings}
+\usepackage{bbm}
+\definecolor{myblue}{RGB}{0,163,243}
+\begin{document}
+
+%-------------------------------
+%	TITULO
+%-------------------------------
+
+\fancyhead[C]{}
+\hrule \medskip 
+\begin{minipage}{0.295\textwidth} 
+\raggedright
+Profesor: Manuel Fernández\\
+\vspace{2mm}
+- David Arboleda\\
+- Camilo Arias\\
+- Valentina Daza\\
+- Douglas Newball\\
+- Santiago Torres.
+\end{minipage}
+\begin{minipage}{0.4\textwidth} 
+\centering 
+\huge 
+Taller 1\\ 
+\vspace{2mm}
+\normalsize 
+Econometría Avanzada, 2022-1\\ 
+Fecha de Entrega: 25 de febrero
+\end{minipage}
+\begin{minipage}{0.295\textwidth} 
+\begin{figure}[H]
+\raggedleft
+\includegraphics[scale=0.3]{uniandes.pdf}
+\end{figure}
+\hfill
+\end{minipage}
+\medskip\hrule 
+\bigskip
+
+%-------------------------------
+%	CONTENIDO
+%-------------------------------
+
+\section*{Primer ejercicio}
+Por motivo de la grave situación económica en el país luego de la pandemia, el Gobierno lanzó un programa social destinado a mejorar los ingresos de hogares pequeños cultivadores de café. En particular, la ayuda consistió en una capacitación acerca de la elección y uso de fertilizantes, ofrecida al jefe de hogar, junto con la entrega de una cantidad fija de dinero. Sin embargo, los recursos para desarrollar esta política eran limitados, por lo que sólo se podía brindar el programa a algunos de los hogares registrados en las bases de datos del Gobierno (los hogares no se tenían que inscribir para ser candidatos a recibir el programa). Por lo tanto, buscando evitar favorecimientos indebidos, se eligió aleatoriamente un subconjunto de hogares que recibirían el programa.  Todos las familias seleccionadas para recibir la ayuda  participaron activamente.\\
+
+En busca de evaluar la efectividad de la medida, el Gobierno recolectó información acerca de la cosecha posterior al programa para todos los $n$ hogares que fueron elegibles para el programa (esto es, tanto para los que recibieron el programa como para aquellos que no). Entre la información recolectada, se cuenta con la cantidad de kilogramos de café producido por hectárea cultivada por cada hogar $C_i$, así como una dummy $D_i$ que toma el valor de uno si el hogar participó en el programa y cero de lo contrario.\\
+
+Confiando en las habilidades de los estudiantes de econometría avanzada, a ustedes los contrata el Departamento Nacional de Planeación para llevar a cabo la evaluación de impacto respectiva.\\
+
+Su jefe les dice que una manera de modelar el problema es a través de un modelo de regresión lineal dado por
+\begin{equation} \label{eq: ref}
+C_i=\alpha+\tau D_i+\epsilon_i    
+\end{equation} 
+   
+    
+    donde $\epsilon_i$ es un componente aleatorio idiosincrásico de media cero ($\mathbb{E}[\epsilon_i]=0$) y con varianza $\sigma^2$ ($\mathbb{E}[\epsilon^2_i]=\sigma^2$).\\
+
+\begin{itemize}
+
+\item[a)] Sean $C_i(1)$ y $C_i(0)$ los resultados potenciales de haber participado o no en el programa respectivamente. Similarmente, sean $\epsilon_i(1)$ y $\epsilon_i(0)$ los resultados potenciales análogos del error idiosincrático. Suponga además que $\mathbb{E}[\epsilon_i(1)]=\mathbb{E}[\epsilon_i(0)]=0$.
+
+\begin{itemize}
+    \item[i)] ¿Cuáles son las formas funcionales de $C_i(1)$ y $C_i(0)$ inducidas por el modelo \eqref{eq: ref}?
+    \item[ii)] ¿Cuál parámetro del modelo captura el ATT del programa? Justifique matemáticamente.
+    
+    \item[iii)] Imagine un escenario donde el programa, en lugar de ser asignado aleatoriamente, se entregaba a las familias que viven en lugares con climas menos favorables para el cultivo. ¿En este escenario el parámetro del inciso ii) sigue capturando el ATT?
+\end{itemize}
+
+\textbf{\textit{Pista:}} Recuerde que
+
+$$C_i=D_i \, C_i(1)+ (1-D_i)\, C_i(0); \qquad \epsilon_i=D_i \, \epsilon_i(1)+ (1-D_i)\, \epsilon_i(0)$$
+
+    
+    \item[b)] Bajo el cumplimiento de los supuestos del modelo clásico lineal, demuestre que el estimador de MCO $\hat{\tau}$ es un estimador consistente del ATT y derive explícitamente su distribución asintótica (la varianza asintótica debe depender únicamente de $n$, $\sigma^2$ y $p=\mathbb{P}(D_i=1)$).
+    
+    \textbf{Pista:} Recuerde el siguiente teorema visto en clase:
+    
+    \textit{Una secuencia de vectores aleatorios $\{x_N : N=1, 2, \cdots\}$ de $K \times 1$ converge en distribución al vector aleatorio $x$, si para cualquier vector no aleatorio $c$ de $K \times 1$, }
+    
+    $$c^Tx_N \xrightarrow{d} c^Tx$$
+
+    
+\end{itemize}
+
+Contentos por los reveladores hallazgos de los incisos $a)$ y $b)$, ustedes van por un tinto a la cafetería. En ella, encuentran dos colegas debatiendo acerca de cómo estimar correctamente el ATT. Uno de ellos argumenta que, debido a que hay aleatorización, el estimador debe ser una diferencia ``ingenua'' de medias de la variable dependiente entre los hogares participantes  y aquellos que, aunque elegibles, no accedieron al programa. Su otro compañero lo contradice, pues afirma que la manera correcta de hacerlo es estimando $\tau$ del modelo \eqref{eq: ref} por MCO dadas las conclusiones del inciso $a)$ y $b)$. ¿Quién tiene la razón?\\
+
+Queriendo resolver esta encrucijada, a ustedes se les ocurre una idea: si logran probar que ambos estimadores son numéricamente equivalentes, entonces no debería importar cuál procedimiento utilicen.
+
+\begin{itemize}
+
+\item[c)] Prueben que la diferencia ingenua de medias es numéricamente equivalente al estimador de MCO del parámetro $\tau$ del modelo $\eqref{eq: ref}$. \\
+
+\textbf{Ayuda:} Considere el modelo vectorial
+
+  
+    $$\boldsymbol{C}=\boldsymbol{X}\beta +\boldsymbol{\epsilon}$$
+    
+    donde
+    
+    \[
+    \boldsymbol{X}=
+    \begin{pmatrix}
+    1 & D_1 \\
+    1 & D_2 \\
+    \vdots & \vdots\\
+    1 & D_n
+    \end{pmatrix}; \qquad
+    \boldsymbol{C}=
+    \begin{pmatrix}
+    C_1\\
+    C_2 \\
+    \vdots\\
+    C_n
+    \end{pmatrix};\qquad
+    \boldsymbol{\epsilon}=
+    \begin{pmatrix}
+    \epsilon_1\\
+    \epsilon_2 \\
+    \vdots\\
+    \epsilon_n
+    \end{pmatrix}; \qquad
+    \beta=
+    \begin{pmatrix}
+    \alpha\\
+    \tau \\
+    \end{pmatrix}
+    \]
+    
+
+
+Puede usar sin probar que
+
+ \[
+    (\boldsymbol{X}'\boldsymbol{X})^{-1}=
+    \dfrac{1}{\left( \sum \limits_{i=1}^n D_i \right) \left(\sum\limits_{i=1}^n (1-D_i) \right)}
+    \begin{pmatrix}
+    \sum \limits_{i=1}^n D_i & -\sum \limits_{i=1}^n D_i\\
+    -\sum \limits_{i=1}^n D_i & n 
+    \end{pmatrix}
+    \]
+
+
+y que 
+
+
+    \[\boldsymbol{X}'\boldsymbol{C}=
+  \begin{pmatrix}
+    \sum \limits_{i=1}^n C_i\\
+    \sum \limits_{i=1}^n D_iC_i
+    \end{pmatrix}
+    \]\\
+    
+\end{itemize}
+
+
+Ahora una compañera le comenta que, según lo que ha leído, ella cree que el éxito del programa depende en gran medida de la calidad de la tierra donde se siembra. De manera que, pueden existir posibles \emph{efectos heterogéneos} dependiendo de las dotaciones de este factor en cada hogar. Asimismo, le comenta que afortunadamente se cuenta con una variable $Z_i$ en la base de datos que captura esta información. Por lo tanto, ella propone que un modelo más completo estaría dado por
+
+
+\begin{equation}\label{eq: ref2}
+C_i=\beta_0+\beta_1 D_i +\beta_2 \tilde{Z}_i+\beta_3 \, D_i  \tilde{Z}_i+\epsilon_i    
+\end{equation}
+
+donde $\tilde{Z}_i=(Z_i-\bar{Z})$ y $\bar{Z}$ es el promedio muestral. Finalmente, suponga que $\mathbb{E}[\epsilon_i(1)|Z_i]=0$ y $\mathbb{E}[\epsilon_i(0)|Z_i]=0$, esto es, que la calidad de la tierra es exógena.\\
+
+\begin{itemize}
+    \item[d)] Partiendo del modelo \eqref{eq: ref2}: 
+
+\begin{itemize}
+    \item[i)] Calcule el efecto esperado en los tratados como función de $Z$:
+    
+    $$ATT(Z)=\mathbb{E}[C_i(1)-C_i(0)| D_i=1,Z]$$
+    
+    ¿Cuál es la interpretación de $\beta_1$ y $\beta_3$? 
+    
+    \item[ii)] Halle el parámetro que ahora captura el ATT del programa.
+    
+    \item[iii)] ¿Qué pasaría si $Z_i$ no fuese exógena?
+    
+
+\end{itemize}
+
+Finalmente, su jefe les tiene un último reto: probar si para al menos el 95\% de los hogares participantes el efecto de participar fue positivo.
+
+\item[e)] Suponga que $Z_i \sim \mathbb{N}(\mu,1)$. Usando la forma funcional del modelo $\eqref{eq: ref2}$:
+
+\begin{itemize}
+    \item[i)] Encuentre la distribución de $ATT(Z)$
+    
+    \item[ii)] Encuentre el percentil 5 ($p_{0.05}$) de la distribución de $ATT(Z)$ en términos de los parámetros del modelo.
+    
+    \item[iii)] Suponga que usted estimó por MCO que
+    
+    \[
+    \begin{pmatrix}
+    \hat{\beta}_0\\
+    \hat{\beta}_1\\
+    \hat{\beta}_2\\
+    \hat{\beta}_3\\
+    \end{pmatrix}=
+     \begin{pmatrix}
+    0.6\\
+    2\\
+    0.3\\
+    -0.03\\
+    \end{pmatrix}; \qquad
+    S= 
+     \begin{pmatrix}
+    0.6 & -0.26 & 0.33 & 0\\
+    -0.26 & 0.7 & 0.5 & 0\\
+    0.33 & 0.5 & 0.35 & -0.25\\
+    0 & 0 & -0.25 & 0.08\\
+    \end{pmatrix}
+    \]
+    
+    donde $S$ es la matriz de varianza-covarianza estimada de los parámetros.\\
+    
+    Construya un estimador consistente de $p_{0.05}$ y diseñe un test que le permita probar:
+    
+    \[
+    \begin{cases}
+    H_0: p_{0.05}\leq0\\
+    H_a: p_{0.05}>0
+    \end{cases}
+    \]
+    
+    Use los datos disponibles para ejecutar su test. Concluya para un nivel de signifancia $\alpha=0.05$.
+    
+    \item[iv)] Verdadero o falso: Si el $p$-valor del test es mayor a $0.05$, entonces existe evidencia estadística de que el efecto de que el hogar en el percentil 5 de la distribución de efectos fue negativo o nulo. Justifique.
+
+    
+\end{itemize}
+
+  
+   
+    
+\end{itemize}
+
+
+\bigskip
+
+%------------------------------------------------
+
+\section*{Segundo ejercicio}
+
+Una curva de aprendizaje se puede pensar como el cambio en la productividad o eficiencia con la que se hacen las cosas en el transcurso del tiempo. Este concepto es utilizado en Economía, por ejemplo, para modelar el cambio de los costos reales de las firmas según el tiempo que llevan operando. En particular, se supone que las firmas van aprendiendo a producir de manera más eficiente, por lo que el costo real de producción debería, \textit{ceteris paribus}, decrecer.\\
+
+Supongan que la curva generalizada de aprendizaje de una firma hipotética está dada por
+
+\begin{equation}
+    C_{i} = C_{0}N_{i}^{\frac{\alpha}{\gamma}}Y_{i}^{\frac{1-\alpha}{\gamma}}\exp(u_{i}), \tag{1}
+    \label{eqn:2}
+\end{equation}
+
+donde $C_{i}$ corresponde a los costos reales unitarios que enfrenta una firma $i$; $Y_{i}$ es su nivel de producción;  $N_{i}$ es la producción acumulada a lo largo del tiempo; $C_{0}$ corresponde a una medida de costos iniciales; y $u_{i}$ es un término estocástico de media cero desconocido para el econometrista. El parámetro $\alpha$ determina la dirección de la elasticidad del costo unitario con respecto a la producción acumulada. Este es el principal parámetro de interés. Finalmente, el parámetro $\gamma \in \mathbb{R}^{+}$ caracteriza los retornos a escala de la función de aprendizaje: si $\gamma=1$ la curva tiene retornos constantes a escala, si $\gamma<1$ la curva tiene retornos decrecientes a escala, y si $\gamma>1$ la curva tiene retornos crecientes a escala.\footnote{Si la tecnología de producción muestra rendimientos constantes a escala, los costos unitarios reales no deben variar con el nivel de producción. Por el contrario, si los rendimientos son crecientes a escala, los costos unitarios deberían disminuir a medida que aumenta el nivel de producción, y si son decrecientes, se esperaría lo contrario.}\\
+
+Usted, como investigador, está interesado en estimar la curva de aprendizaje que enfrentan las firmas de la industria manufacturera colombiana. Para ello, cuenta con información de $C_{i}$, $N_{i}$ y $Y_{i}$ para $N$ firmas de la industria.
+
+\begin{itemize}
+
+    \item[a)] Propongan un modelo de regresión lineal que capture la forma funcional dada en (\ref{eqn:2}).  Muestre cómo los parámetros de su nuevo modelo dependen de los parámetros de la curva de aprendizaje.  Mencionen y discutan los supuestos necesarios para que los estimadores por MCO de los parámetros del modelo sean insesgados y consistentes. ¿Son estos supuestos plausibles en el contexto del problema?
+    
+    \item[b)] Supongan que se cumplen los supuestos que ustedes discutieron en el inciso anterior. Propongan un estimador consistente de $\alpha$ y $\gamma$.
+    
+    \item[c)]Propongan estimadores de las desviaciones estándar de $\widehat{\alpha}$ y $\widehat{\gamma}$. Para esto, supongan que la matriz de varianzas y covarianzas asintótica de $\sqrt{N}(\widehat{\beta}-\beta)$ y su respectivo estimador están dados por
+    
+    \begin{align}
+        V &= Avar(\sqrt{N}(\widehat{\beta}-\beta)) = \begin{pmatrix}
+            \sigma_{1}^{2} & \sigma_{12} & \sigma_{13} \\
+            \sigma_{12} & \sigma_{2}^{2} & \sigma_{23} \\
+            \sigma_{13} & \sigma_{23} & \sigma_{3}^{2}
+        \end{pmatrix} \mbox{  y  }
+        \quad \hat{V} = \widehat{Avar}(\sqrt{N}(\widehat{\beta}-\beta)) = \begin{pmatrix}
+            \widehat{\sigma}_{1}^{2} & \widehat{\sigma}_{12} & \widehat{\sigma}_{13} \\
+            \widehat{\sigma}_{12} & \widehat{\sigma}_{2}^{2} & \widehat{\sigma}_{23} \\
+            \widehat{\sigma}_{13} & \widehat{\sigma}_{23} & \widehat{\sigma}_{3}^{2}
+        \end{pmatrix}
+    \end{align}
+    
+    respectivamente. Asegúrense de que sus expresiones estén en términos de $\widehat{\beta}_{1}$, $\widehat{\beta}_{2}$ y los elementos que componen $\hat{V}$.\\
+    
+    \textbf{Pista:} El método delta puede resultar útil. 
+    
+
+
+\end{itemize}
+
+Usted cuenta con la base de datos ``manufacturaCol.dta'' para implementar la estimación de los parámetros propuesta en los incisos anteriores. La base de datos cuenta con información de las siguientes variables para cada una de las 11,500 firmas de la muestra:
+
+\begin{itemize}
+    \item \textit{costos:} Costos unitarios reales de producción que enfrenta la firma en el momento que se levantaron los datos medido en miles de millones pesos.
+    \item \textit{producto:} Producción de la firma en miles de millones pesos en el momento que se levantaron los datos.
+    \item \textit{producto\_acum:} Producción acumulada histórica de la firma en el momento en que se levantaron los datos medida en miles de millones de pesos .
+\end{itemize}
+
+Resuelvan los siguientes incisos a partir de los datos disponibles en la base de datos.
+
+\begin{itemize}
+    
+    \item[d)] A manera de estadísticas descriptivas, representen mediante un gráfico de dispersión y su respectiva línea de ajuste las siguientes relaciones: 1. La relación de $\log(C_{i})$ con $\log(N_{i})$ una vez se ha ``removido'' el efecto de $\log(Y_{i})$. 2. La relación de $\log(C_{i})$ con $\log(Y_{i})$ una vez se ha ``removido'' el efecto de $\log(N_{i})$.\\
+    
+    
+    \textbf{Ayuda:} para lograr esto, apliquen la intuición de \href{https://www.dropbox.com/s/grsard9s9u8st0t/Partial\%20Regression.pdf?dl=0}{\underline{\textit{partialling out} o residualización}} de los modelos de regresión múltiples. Interprete los gráficos de dispersión.
+
+    
+
+    
+    \item[e)] Finalmente, estimen por MCO la ecuación propuesta en el inciso $a)$. A partir de estos resultados, estimen $\alpha$, $\gamma$, y sus respectivos errores estándar siguiendo el planteamiento de los incisos $b)$ y $c)$. Presenten en una tabla los parámetros estimados por MCO. ¿Son estos parámetros consistentes con las gráficas que presentaron en el inciso anterior? Discutan brevemente. Adicionalmente, en una segunda tabla presenten los parámetros $\alpha$ y $\gamma$ que ustedes estimaron y sus respectivos errores estándar. Interpreten estos últimos. ¿Hay rendimientos crecientes, decrecientes o constantes a escala? ¿Qué tipo de curva de aprendizaje hay en la industria?
+    
+    
+\end{itemize}
+
+
+
+
+\bigskip
+
+%------------------------------------------------
+
+\section*{Tercer ejercicio}
+Aunque las propiedades asintóticas de los estimadores son de gran utilidad para el ejercicio práctico de la estadística, lo cierto es que muchas veces encontrar resultados teóricos en este ámbito es extremadamente complicado. En estas ocasiones, es usual recurrir a otras herramientas, como lo son los procedimientos de Monte Carlo. En breve, los métodos de Monte Carlo aplicados a la estadística buscan explorar las propiedades de los estimadores (insesgamiento, consistencia, eficiencia, suficiencia, etc.) al observar el comportamiento de los mismos en varias muestras aleatorias simuladas. Este ejercicio los guiará a través de una serie de actividades que les permitirán entender algunos métodos clásicos de simulación de muestras aleatorias para, posteriormente, usarlos para evaluar el comportamiento de uno de los estimadores más importantes que se encontrarán en sus carreras: el estimador de MCO.
+\\\\
+Suponga que el Ministerio de Educación ha decidido lanzar un programa de preparación y acompañamiento para la presentación de la prueba ICFES a estudiantes que se encuentren en su último año de bachillerato. En particular, suponga que usted conoce que el puntaje ICFES estandarizado potencial $Y_{i}(\cdot)$ obedece el siguiente modelo:
+\\\\
+\begin{equation*}
+    Y_{i}(0) \sim N(0,1)
+\end{equation*}
+\begin{equation*}
+    Y_{i}(1) = Y_{i}(0)+3
+\end{equation*}
+
+donde $Y_i(1)$ y $Y_i(0)$ son los resultados potenciales del puntaje ICFES en caso de participar y de no participar respectivamente, y donde $Y_i(0)$ tiene una distribución normal estándar.\\
+
+
+
+\begin{itemize}
+    \item[a)] Escriba el puntaje ICFES observado, $Y_{i}$, en términos de los resultados potenciales y la exposición al tratamiento, $D_{i}$. Suponga que el Ministerio escoge aleatoriamente a los participantes del programa y que todo individuo seleccionado obligatoriamente participa. Proponga un modelo de regresión lineal que le permita estimar el efecto del tratamiento sobre el puntaje, llámese $\delta$.
+    
+ 
+        
+\item[b).] Inicialmente, buscaremos validar a través de simulaciones algunas de las propiedades asintóticas del estimador por MCO. En particular, a usted le interesa saber si a medida que aumenta el tamaño de muestra sus estimativos del efecto del programa se tornan más precisos.
+
+\begin{itemize}
+    \item[I.] Simule 100 muestras $\{(Y_{i}(0), Y_i(1), D_i\}_{i=1}^n$ de tamaño $n=10, 20, ..., 1000$   donde  $D_{i}\sim Bernoulli(0.3)$. Para cada muestra, estime el efecto de la política del Ministerio sobre el puntaje ICFES y almacene su estimado.
+    
+    \item[II.] Obtenga la media y la varianza muestral de los estimadores almacenados para los distintos tamaños de muestra.
+    
+    \item[III.] Haga las siguientes dos gráficas: 1) Grafique el promedio muestral de los estimadores contra el tamaño de muestra. 2) Grafique las varianzas muestrales contra el tamaño de muestra correspondientes. ¿Qué puede decir acerca del comportamiento de las estimaciones a medida que aumenta el tamaño de muestra? ¿Qué propiedades del estimador de MCO se ven reflejadas en el ejercicio? \\
+    
+
+\end{itemize}
+
+
+
+    
+    \end{itemize}
+    
+Uno de los propósitos principales de los modelos de regresión lineal es poder estudiar las relaciones que existen entre la variable dependiente y las variables independientes. Más precisamente, nos interesa dilucidar el tamaño y el signo de dicha relación. No obstante, en la práctica, esto es difícil de establecer puesto que desconocemos el proceso generador de los datos y en general, contamos con una sola muestra para nuestra estimación. Así las cosas, si nuestro objetivo es hacer inferencia, debemos  preguntarnos qué tan precisas son nuestras estimaciones, esto es, qué tan dependientes son de la muestra particular que tenemos. Para lograrlo, es útil entender a los estimadores como variables aleatorias, que dependen de una muestra, pero que tienen una distribución definida. En particular,  es de nuestro interés dicha distribución cuando el tamaño de muestra es grande, pues conocer la distribución exacta para muestras reducidas puede ser complicado.\\
+
+\begin{itemize}
+\item[c)] En este inciso vamos a aproximar la distribución asintótica del estimador de MCO. Para ello, realicen las siguientes instrucciones:    
+    
+    
+    \begin{itemize}
+        \item[I.] Siguiendo los pasos expuestos en el punto $b)$, simule 1000 muestras $\{(Y_{i}(0), Y_i(1), D_i\}_{i=1}^n$ de tamaño $n=10, 20, 100, 1000$   donde  $D_{i}\sim Bernoulli(0.3)$. Para cada muestra, estime el efecto del programa del Ministerio y calcule y almacene
+        \begin{equation*}
+            a_{k,n}=\sqrt{n}(\hat{\delta}_{k,n}-\delta)
+        \end{equation*}
+        
+        donde $k$ indexa las muestras de un determinado tamaño.
+        
+        
+        \item[II.] Grafique las densidades estimadas de los $a_{k,n}$ para cada $n$. ¿Qué puede apreciar a medida que aumenta $n$? ¿A qué se debe este resultado?
+        
+     \end{itemize}
+  
+ \end{itemize}    
+ Suponga ahora que usted sabe que existen factores ajenos a las políticas del Ministerio que inciden sobre los resultados potenciales de los alumnos. Por ejemplo, sabe que existen alumnos que, independientemente de si son o no seleccionados, igual se inscribirían en cursos de preparación para presentar el ICFES. Similarmente, hay alumnos que por condiciones adversas (enfermedades, salones menos adecuados para la presentación del examen) exhiben un desempeño muy inferior a lo esperado. Estos factores producen una mayor volatilidad en los resultados potenciales de los alumnos. 
+        \\
+        
+\begin{itemize}
+
+ \item[d)] En este sentido, usted sabe que es más plausible considerar que los resultados potenciales en realidad obedecen la ley  $Y_{i}(0)\sim \textit{Cauchy}$ (\href{https://es.wikipedia.org/wiki/Distribuci\%C3\%B3n_de_Cauchy}{Distribución Cauchy estándar} ) en vez de una normal estándar. Esto es, en ocasiones usted observa datos atípicos que no parecen corresponder con el patrón general de la muestra. Repita los incisos I y II del $c)$ bajo estas condiciones. ¿Por qué en este caso no se satisface el Teorema del Límite Central?¿Qué consecuencias tendría esto para la inferencia de los parámetros de MCO si usáramos los procedimientos estadísticos usuales en este caso?
+        
+        
+        
+ \end{itemize} 
+    
+    
+
+ Finalmente, suponga que usted sabe que el programa implementado por el ministerio tiene el objetivo de nivelar los conocimientos de los estudiantes que en el participan. Por dicha razón, los resultados de las pruebas de los estudiantes que no participan en el programa son mas volátiles.\\
+    
+    Una manera de modelar esta observación es a través del modelo:
+    
+    \begin{equation*}
+        Y_{i} = 3*D_{i}+v_{i}
+    \end{equation*}
+    donde $v_{i}\sim N(0, 2-D_{i})$.
+    
+    
+   
+\begin{itemize}  
+    
+\item[e)] Para este nuevo modelo, realice el siguiente procedimiento:     
+    
+    
+    \begin{itemize}
+        \item[I.] Simule 1000 muestras $\{(Y_{i}(0), Y_i(1), D_i\}_{i=1}^{1000}$. Para cada muestra, recupere los intervalos de confianza clásicos al 90\%, 95\% y 99\% obtenidos para $\delta$ y codifique en una matriz si dicho intervalo contiene o no a $\delta$.
+        
+        \item[II.]¿Qué porcentaje de los intervalos de cada nivel contiene al parámetro verdadero? Presente sus resultados en una tabla ¿A qué se deben estos resultados? ¿Qué le sugiere esto sobre su forma de computar los intervalos?
+ 
+        \item[III.] Repita los numerales I y II, esta vez empleando errores estándar de White (robustos) en la construcción de sus intervalos. Concluya.
+        
+\end{itemize}
+\end{itemize}
+
+
+
+\bigskip
+
+%------------------------------------------------
+
+\section*{Punto doctorado}
+
+Usted se encuentra cursando el curso de seminario de investigación doctoral. En las primeras semanas le piden que presente algunas relaciones de causalidad que tenga pensado abordar en su disertación. Su profesora de seminario lo invita a que avance en el planteamiento de sus ideas a través del uso de gráficos acíclicos dirigidos (Directed Acyclic Graph - DAG).\footnote{Si no se encuentra familiarizado con los DAGs, una excelente referencia y explicación se encuentra en el tercer capítulo del libro  de Scott Cunningham: Causal Inference: The mixtape, del año 2021. \url{https://mixtape.scunning.com/}   }  En breve, los DAGs se componen de dos elementos: flechas y variables. Las flechas entre variables indican causalidad en el sentido en el que esta apuntando la flecha. Un \textbf{\textit{Camino}} es cualquier conexión entre dos variables realizada por flechas, sin importar su dirección o si existen otras variables intermedias. Un \textbf{\textit{Camino por la puerta trasera}} de la variable $X$ a la variable $Y$  es un camino que empieza con una flecha dirigida hacia $X$. Un \textbf{\textit{Colisionador}} es una variable a la que apuntan dos flechas en un camino. 
+
+
+\begin{itemize}
+
+\item[a)] Usando puntos negros para graficar las variables observadas y circunferencias para graficar las variables no observadas ($X, Z$ y $Y$), realice los DAGs que representan:
+
+
+
+\begin{itemize}
+    \item[i)] $X$ tiene una relación de causalidad hacia $Y$. A su vez, $Z$ tiene una relación de causalidad hacia $X$ y otra hacia $Y$.
+    
+    \item[ii)] $X$ tiene una relación de causalidad hacia $Z$. A su vez, $Z$ tiene una relación de causalidad hacia $Y$.
+    
+    \item[iii)] La variable no observada: U tiene una relación de causalidad hacia Z y otra hacia Y. A su vez, $X$ tiene una relación de causalidad hacia $Y$ y otra hacia $Z$.
+    
+    \item[iv)] La variable $X$ tiene una relación de causalidad hacia $Z$ y otra hacia $Y$. A su vez, $Y$ tiene una relación de causalidad hacia $Z$
+    
+    \item[v)] La variable no observada: U tiene una relación de causalidad hacia $Z$ y otra hacia $Y$. A su vez, $X$ tiene una relación de causalidad hacia $Y$, mientras que $Z$ tiene una relación de causalidad hacia $X$.
+    
+\end{itemize}
+
+
+\item[b)] Ahora usted quiere implementar un modelo de regresión lineal simple para evaluar los efectos causales de $X$ sobre $Y$. Con este objetivo, usted está determinando la conveniencia de incluir la variable $Z$ como variable de control en su modelo. Argumente, para cada caso representado por los DAGs, si la inclusión de $Z$, como control en el modelo, es apropiada. Para sus respuestas, tenga en cuenta que un variable es un mal control si: bloquea caminos causales entre $X$ y $Y$ o abre otros caminos que no son causales entre $X$ y $Y$. \\
+
+
+(\textbf{\textit{Pista}}\textit{: Bloquear un camino es equivalente a controlar por variables que no son Colisionadoras o no controlar por las Colisionadoras. Abrir un camino es equivalente a controlar por variables que son Colisionadoras o no controlar por no Colisionadoras)}
+
+
+
+
+\item[c)] Finalmente, usted sabe que la variable $X$ es independiente de los resultados potenciales de $Y$ y de $Z$. Por otro lado, usted sospecha que $Z$ podría ser un mal control y que este hecho puede generarse porque la variable $Z$ es, a su vez, una variable de resultado en su modelo. Plantee una forma de aproximarse empíricamente para evaluar si este hecho puede estar ocurriendo
+
+
+\end{itemize}
+
+\bigskip
+
+%------------------------------------------------
+
+\end{document}
